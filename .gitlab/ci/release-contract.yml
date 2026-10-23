@@ -1,0 +1,12 @@
+homepage-release-contract:
+  stage: verify
+  image: node:24-bookworm-slim
+  timeout: 5m
+  script:
+    - npm ci
+    - npm run build
+    - npm run test:release
+  artifacts:
+    when: always
+    paths: [dist/]
+    expire_in: 7 days

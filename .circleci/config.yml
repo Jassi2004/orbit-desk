@@ -1,0 +1,20 @@
+version: 2.1
+jobs:
+  verify-package:
+    docker:
+      - image: cimg/node:24.12
+    steps:
+      - checkout
+      - run:
+          name: Install and build
+          command: npm ci && npm run build
+      - run:
+          name: Validate the published package as a consumer
+          command: npm run test:package
+workflows:
+  package-contract:
+    jobs:
+      - verify-package:
+          filters:
+            branches:
+              only: main
