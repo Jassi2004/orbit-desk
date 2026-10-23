@@ -5,6 +5,6 @@ export function totalMonthlyCents(seats, unitPriceCents = 4000) {
   if (!Number.isInteger(unitPriceCents) || unitPriceCents < 0)
     throw new RangeError("Unit price must be non-negative integer cents.");
   const subtotal = seats * unitPriceCents;
-  const discountBasisPoints = seats >= 3 ? 1500 : 0;
+  const discountBasisPoints = seats >= 3 ? 2000 : 0;
   return Math.round((subtotal * (10000 - discountBasisPoints)) / 10000);
 }
