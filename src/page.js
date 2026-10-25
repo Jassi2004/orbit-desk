@@ -7,7 +7,7 @@ export function renderHomePage() {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Orbit Desk</title>
+  <title>Orbit Workspace</title>
   <style>
     :root { color-scheme: dark; font: 17px/1.6 system-ui, sans-serif; background: #080d17; color: #e2e8f0; }
     body { min-height: 100vh; margin: 0; display: grid; place-items: center; }
