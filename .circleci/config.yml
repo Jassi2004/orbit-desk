@@ -17,4 +17,6 @@ workflows:
       - verify-package:
           filters:
             branches:
-              only: main
+              only:
+                - main
+                - /^maya\/repair-.*/
