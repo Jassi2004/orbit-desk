@@ -1,0 +1,1 @@
+export const TEAM_DISCOUNT_BASIS_POINTS = 1000;
