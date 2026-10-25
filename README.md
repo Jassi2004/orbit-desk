@@ -17,3 +17,7 @@ Build history: [GitHub Actions](https://github.com/Jassi2004/orbit-desk/actions)
 GitHub is the canonical source. The GitLab project is a second remote containing the **same Git commits**, so its jobs execute real GitLab CI against exactly the same source revision. This exercise explicitly pushes each test revision to both remotes; it does not pretend that GitLab automatically runs a config found on GitHub. CircleCI is connected directly to GitHub.
 
 MAYA observes the three provider runs inside one company workspace. Intentional regression commits and their later fixes remain in Git history as reproducible learning evidence. No billing credentials, customer data, production payment flow, or deliberate failures in another company are involved.
+
+## Observation replay
+
+Each provider observes the same source revision. This demo keeps unit, release, and package-consumer checks independent so MAYA can route the failing monitor without changing the passing ones.
