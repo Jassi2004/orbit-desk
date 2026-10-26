@@ -6,6 +6,7 @@ homepage-release-contract:
     - npm ci
     - npm run build
     - npm run test:release
+    - node --test test/gitlab-release.test.js
   artifacts:
     when: always
     paths: [dist/]
