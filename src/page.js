@@ -19,6 +19,6 @@ export function renderHomePage() {
 <body><main>
   <p>ORBIT DESK</p><h1>A calmer workspace for your team.</h1>
   <p>Simple seat billing. Three seats include our 10% team discount.</p>
-  <strong data-testid="team-price">$${price}</strong><small>per month · 3 seats</small>
+  <strong data-testid="team-price">$${price}</strong><small>per month · 4 seats</small>
 </main></body></html>`;
 }
