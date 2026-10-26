@@ -1,7 +1,27 @@
 workflow:
   rules:
+    - if: '$MAYA_SECURITY_SCAN == "1"'
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-stages: [verify]
+stages: [verify, test, security-policy]
 include:
   - local: .gitlab/ci/release-contract.yml
+  - template: Jobs/SAST.gitlab-ci.yml
+variables:
+  GITLAB_ADVANCED_SAST_ENABLED: "false"
+semgrep-sast:
+  rules:
+    - if: '$MAYA_SECURITY_SCAN == "1"'
+  artifacts:
+    paths: [gl-sast-report.json]
+    expire_in: 14 days
+security-policy-gate:
+  stage: security-policy
+  image: node:24-bookworm-slim
+  needs:
+    - job: semgrep-sast
+      artifacts: true
+  rules:
+    - if: '$MAYA_SECURITY_SCAN == "1"'
+  script:
+    - node scripts/security-policy.mjs
