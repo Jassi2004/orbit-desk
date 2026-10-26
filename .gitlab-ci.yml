@@ -7,7 +7,7 @@ spec:
     maya_scan_request_id:
       type: string
       default: ""
-      regex: '^[a-zA-Z0-9:_-]{0,200}$'
+      regex: '^[a-zA-Z0-9:._-]{0,200}$'
 ---
 workflow:
   name: "$MAYA_PIPELINE_NAME"
