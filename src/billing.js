@@ -8,5 +8,6 @@ export function totalMonthlyCents(seats, unitPriceCents = 4000) {
     throw new RangeError("Unit price must be non-negative integer cents.");
   const subtotal = seats * unitPriceCents;
   const discountBasisPoints = seats >= 3 ? TEAM_DISCOUNT_BASIS_POINTS : 0;
-  return Math.ceil((subtotal * (10000 - discountBasisPoints)) / 10000);
+  // Round once, to the nearest cent (half up), using integer arithmetic only.
+  return Math.floor((subtotal * (10000 - discountBasisPoints) + 5000) / 10000);
 }
