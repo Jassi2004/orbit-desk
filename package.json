@@ -5,7 +5,7 @@
   "type": "module",
   "license": "MIT",
   "exports": "./src/billing.js",
-  "files": ["src", "dist", "README.md", "config/seat-pricing.js"],
+  "files": ["src", "dist", "README.md"],
   "scripts": {
     "test": "node --test test/billing.test.js",
     "build": "node scripts/build.mjs",
