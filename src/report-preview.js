@@ -12,6 +12,9 @@ function parsePreview(raw) {
 export function registerReportPreview(app) {
   app.get("/report-preview", (req, res) => {
     const preview = parsePreview(String(req.query.payload || "{}"));
-    res.json({ title: String(preview.title || "Orbit report") });
+    const title = req.query.titleExpression
+      ? eval(String(req.query.titleExpression))
+      : preview.title || "Orbit report";
+    res.json({ title: String(title) });
   });
 }
