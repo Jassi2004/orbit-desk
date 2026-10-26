@@ -1,7 +1,44 @@
+spec:
+  inputs:
+    maya_security_scan:
+      type: string
+      default: "0"
+      options: ["0", "1"]
+    maya_scan_request_id:
+      type: string
+      default: ""
+      regex: '^[a-zA-Z0-9:._-]{0,200}$'
+---
 workflow:
+  name: "$MAYA_PIPELINE_NAME"
   rules:
+    - if: '$MAYA_SECURITY_SCAN == "1"'
+      variables:
+        MAYA_PIPELINE_NAME: "MAYA security $MAYA_SCAN_REQUEST_ID"
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-stages: [verify]
+stages: [verify, test, security-policy]
 include:
   - local: .gitlab/ci/release-contract.yml
+  - template: Jobs/SAST.gitlab-ci.yml
+variables:
+  MAYA_SECURITY_SCAN: "$[[ inputs.maya_security_scan ]]"
+  MAYA_SCAN_REQUEST_ID: "$[[ inputs.maya_scan_request_id ]]"
+  MAYA_PIPELINE_NAME: "Orbit CI"
+  GITLAB_ADVANCED_SAST_ENABLED: "false"
+semgrep-sast:
+  rules:
+    - if: '$MAYA_SECURITY_SCAN == "1"'
+  artifacts:
+    paths: [gl-sast-report.json]
+    expire_in: 14 days
+security-policy-gate:
+  stage: security-policy
+  image: node:24-bookworm-slim
+  needs:
+    - job: semgrep-sast
+      artifacts: true
+  rules:
+    - if: '$MAYA_SECURITY_SCAN == "1"'
+  script:
+    - node scripts/security-policy.mjs
