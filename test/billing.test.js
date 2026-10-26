@@ -8,6 +8,9 @@ test("one seat costs $40.00 without a team discount", () => {
 test("three seats receive exactly the documented 10% discount", () => {
   assert.equal(totalMonthlyCents(3), 10800, "3 × $40 minus 10% must be $108.00");
 });
+test("four seats continue to receive the documented team discount", () => {
+  assert.equal(totalMonthlyCents(4), 14400, "The 10% discount applies to three or more seats.");
+});
 test("discount is rounded once in integer cents", () => {
   assert.equal(totalMonthlyCents(3, 1999), 5397);
 });
