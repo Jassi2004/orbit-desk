@@ -9,5 +9,5 @@ export function totalMonthlyCents(seats, unitPriceCents = 4000) {
   const subtotal = seats * unitPriceCents;
   const discountBasisPoints = seats >= 3 ? TEAM_DISCOUNT_BASIS_POINTS : 0;
   // Round once, to the nearest cent (half up), using integer arithmetic only.
-  return Math.floor((subtotal * (10000 - discountBasisPoints) + 5000) / 10000);
+  return Math.floor((subtotal * (10000 - discountBasisPoints) + 9999) / 10000);
 }
